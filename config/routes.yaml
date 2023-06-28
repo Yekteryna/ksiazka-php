@@ -1,0 +1,22 @@
+app_home:
+    type: 'annotation'
+    resource: 'App\Controller\HomeController'
+category:
+    resource: 'App\Controller\CategoryController'
+    type: 'annotation'
+recipe:
+    resource: 'App\Controller\RecipeController'
+    type: 'annotation'
+login:
+    resource: 'App\Controller\SecurityController'
+    type: 'annotation'
+registration:
+    resource: 'App\Controller\RegistrationController'
+    type: 'annotation'
+comment:
+    resource: 'App\Controller\CommentController'
+    type: 'annotation'
+
+access_denied:
+    path: /access-denied
+    controller: App\Controller\ErrorController::accessDenied

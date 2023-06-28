@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe{% endblock %}
+
+{% block body %}
+    <h1>Recipe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recipe.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ recipe.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ recipe.description }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ recipe.category }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ recipe.createdAt ? recipe.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="list-group">
+        {% for comment in comments %}
+        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">{{ comment.nickname }}</h6>
+                    <p class="mb-0 opacity-75">{{ comment.message }}</p>
+                    <p class="mb-0 opacity-50">{{ comment.createdAt|date('Y-m-d H:i:s') }}</p>
+                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <form method="post" action="{{ path('app_comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                        <button type="submit" class="btn btn-sm btn-outline-danger delete-comment-button">Delete</button>
+                    </form>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('app_recipe_index') }}" class="btn btn-secondary btn-sm active">back to list</a>
+
+    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn btn-warning">edit</a>
+
+    {{ form_start(form, {'action': path('app_comment_new', {'id': recipe.id})}) }}
+    {{ form_widget(form) }}
+        <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
+    {{ form_end(form, {
+        'attr': {
+            'class': 'form-control'
+        }
+    }) }}
+
+    {{ include('recipe/_delete_form.html.twig') }}
+{% endblock %}
