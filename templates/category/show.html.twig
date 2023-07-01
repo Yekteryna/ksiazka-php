@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}{{ 'category_title.global'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+    <h1>{{ 'category_title.global'|trans}}</h1>
 
     <table class="table">
         <tbody>
@@ -12,14 +12,14 @@
                 <td>{{ category.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{ 'title.global'|trans}}</th>
                 <td>{{ category.title }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_category_index') }}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Back to list</a>
-    <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">Edit</a>
+    <a href="{{ path('app_category_index') }}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">{{ 'back_to_list.global'|trans}}</a>
+    <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">{{ 'edit.global'|trans}}</a>
 
     <hr class="my-4">
 

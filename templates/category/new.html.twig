@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}{{ 'new_category_title.global'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Create new Category</h1>
+    <h1>{{ 'create_new_category_title.global'|trans}}</h1>
 
     {{ include('category/_form.html.twig') }}
 
-    <a href="{{ path('app_category_index') }}" class="btn btn-secondary btn-sm active">back to list</a>
+    <a href="{{ path('app_category_index') }}" class="btn btn-secondary btn-sm active">{{ 'back_to_list.global'|trans}}</a>
 {% endblock %}

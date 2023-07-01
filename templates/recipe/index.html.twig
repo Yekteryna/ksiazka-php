@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recipe{% endblock %}
+{% block title %}{{ 'recipe_title.global'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Recipe</h1>
+    <h1>{{ 'recipe_title.global'|trans}}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Created_at</th>
-                <th>actions</th>
+                <th>{{ 'title.global'|trans}}</th>
+                <th>{{ 'category.global'|trans}}</th>
+                <th>{{ 'created_ad.global'|trans}}</th>
+                <th>{{ 'actions.global'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -21,23 +20,22 @@
             <tr>
                 <td>{{ recipe.id }}</td>
                 <td>{{ recipe.title }}</td>
-                <td>{{ recipe.description }}</td>
                 <td>{{ recipe.category }}</td>
                 <td>{{ recipe.createdAt ? recipe.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}" class="btn btn-warning">Show</a>
-                    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}" class="btn btn-warning">{{ 'show.global'|trans}}</a>
+                    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn btn-warning">{{ 'edit.global'|trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">No records found</td>
+                <td colspan="5">{{ 'no_records.global'|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_recipe_new') }}" class="btn btn-warning">Create new</a>
+    <a href="{{ path('app_recipe_new') }}" class="btn btn-warning">{{ 'create_new.global'|trans}}</a>
 
     {% include 'pagination/paginator.html.twig' %}
 {% endblock %}

@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="title.global">
+                <source>title.global</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="home.base">
+                <source>home.base</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="category.global">
+                <source>category.global</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="created_ad.global">
+                <source>created_ad.global</source>
+                <target>Created At</target>
+            </trans-unit>
+            <trans-unit id="actions.global">
+                <source>actions.global</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="show.global">
+                <source>show.global</source>
+                <target>Show</target>
+            </trans-unit>
+            <trans-unit id="edit.global">
+                <source>edit.global</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="delete.global">
+                <source>delete.global</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="update.global">
+                <source>update.global</source>
+                <target>Update</target>
+            </trans-unit>
+            <trans-unit id="save.global">
+                <source>save.global</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="no_records.global">
+                <source>no_records.global</source>
+                <target>No records found</target>
+            </trans-unit>
+            <trans-unit id="create_new.global">
+                <source>create_new.global</source>
+                <target>Create new</target>
+            </trans-unit>
+            <trans-unit id="back_to_list.global">
+                <source>back_to_list.global</source>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="edit_recipe.recipe">
+                <source>edit_recipe.global</source>
+                <target>Edit recipe</target>
+            </trans-unit>
+            <trans-unit id="recipe_title.recipe">
+                <source>recipe_title.global</source>
+                <target>Recipe</target>
+            </trans-unit>
+            <trans-unit id="recipes_title.recipe">
+                <source>recipes_title.global</source>
+                <target>Recipes</target>
+            </trans-unit>
+            <trans-unit id="sure_to_delete.global">
+                <source>sure_to_delete.global</source>
+                <target>Are you sure you want to delete this item?</target>
+            </trans-unit>
+            <trans-unit id="new_recipe_title.recipe">
+                <source>new_recipe_title.recipe</source>
+                <target>New Recipe</target>
+            </trans-unit>
+            <trans-unit id="create_new_recipe_title.recipe">
+                <source>create_new_recipe_title.recipe</source>
+                <target>Create new Recipe</target>
+            </trans-unit>
+            <trans-unit id="edit_category.category">
+                <source>edit_category.category</source>
+                <target>Edit Category</target>
+            </trans-unit>
+            <trans-unit id="categories_title.category">
+                <source>categories_title.category</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="category_title.category">
+                <source>category_title.category</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="new_category_title.category">
+                <source>new_category_title.category</source>
+                <target>New Category</target>
+            </trans-unit>
+            <trans-unit id="create_new_category_title.category">
+                <source>create_new_category_title.category</source>
+                <target>Create new Category</target>
+            </trans-unit>
+            <trans-unit id="access_denied.global">
+                <source>access_denied.global</source>
+                <target>Access denied</target>
+            </trans-unit>
+            <trans-unit id="title.home">
+                <source>title.home</source>
+                <target>Web site where you can find the best recipe</target>
+            </trans-unit>
+            <trans-unit id="register.global">
+                <source>register.global</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="login.global">
+                <source>login.global</source>
+                <target>Log in!</target>
+            </trans-unit>
+            <trans-unit id="login.base">
+                 <source>login.base</source>
+                 <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="logout.global">
+                <source>logout.global</source>
+                <target>Logout</target>
+            </trans-unit>
+            <trans-unit id="you_are_logged.global">
+                <source>you_are_logged.global</source>
+                <target>You are logged in as</target>
+            </trans-unit>
+            <trans-unit id="pls_sing_in.global">
+                <source>pls_sing_in.global</source>
+                <target>Please sign in</target>
+            </trans-unit>
+            <trans-unit id="email.global">
+                <source>email.global</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="password.global">
+                <source>password.global</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="sign_in.global">
+                <source>pls_sing_in.global</source>
+                <target>Sign in</target>
+            </trans-unit>
+            <trans-unit id="welcome.global">
+                <source>welcome.global</source>
+                <target>Welcome!</target>
+            </trans-unit>
+            <trans-unit id="sign_up.base">
+                <source>sign_up.base</source>
+                <target>Sign-up</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

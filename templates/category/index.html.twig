@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}{{ 'categories_title.category'|trans}}{% endblock %}
 
 {% block body %}
-    <h3>Categories</h3>
+    <h3>{{ 'categories_title.category'|trans}}</h3>
 
     <table class="table table-striped">
     <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Actions</th>
+                <th>{{ 'title.global'|trans}}</th>
+                <th>{{ 'actions.global'|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,18 +19,18 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.title }}</td>
                 <td>
-                    <a href="{{ path('app_recipe_index') }}?category_id={{ category.id }}" class="btn btn-warning" role="button" aria-pressed="true">Recipes</a>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">Show</a>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">Edit</a>
+                    <a href="{{ path('app_recipe_index') }}?category_id={{ category.id }}" class="btn btn-warning" role="button" aria-pressed="true">{{ 'recipes_title.recipe'|trans}}</a>
+                    <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">{{ 'show.global'|trans}}</a>
+                    <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning" role="button" aria-pressed="true">{{ 'edit.global'|trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{{ 'no_records.global'|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_category_new') }}" class="btn btn-warning">Create new</a>
+    <a href="{{ path('app_category_new') }}" class="btn btn-warning">{{ 'create_new.global'|trans}}</a>
 {% endblock %}

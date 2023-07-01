@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Recipe{% endblock %}
+{% block title %}{{ 'edit_recipe.global'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Edit Recipe</h1>
+    <h1>{{ 'edit_recipe.global'|trans}}</h1>
 
-    {{ include('recipe/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('recipe/_form.html.twig', { 'update.global'|trans}) }}
 
-    <a href="{{ path('app_recipe_index') }}" class="btn btn-secondary btn-sm active">back to list</a>
+    <a href="{{ path('app_recipe_index') }}" class="btn btn-secondary btn-sm active">{{ 'back_to_list.global'|trans}}</a>
 
     {{ include('recipe/_delete_form.html.twig') }}
 {% endblock %}
