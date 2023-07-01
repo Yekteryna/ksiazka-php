@@ -27,20 +27,20 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="{{ path('app_home') }}" class="nav-link px-2 text-white">{{ 'home.base'|trans}}{% endblock %}</a></li>
-                        <li><a href="{{ path('app_recipe_index') }}" class="nav-link px-2 text-white">{{ 'recipes_title.recipe'|trans}}{% endblock %}</a></li>
-                        <li><a href="{{ path('app_category_index') }}" class="nav-link px-2 text-white">{{ 'categories_title.category'|trans}}{% endblock %}</a></li>
+                        <li><a href="{{ path('app_home') }}" class="nav-link px-2 text-white">{{ 'home.base'|trans}}</a></li>
+                        <li><a href="{{ path('app_recipe_index') }}" class="nav-link px-2 text-white">{{ 'recipe_title.recipe'|trans}}</a></li>
+                        <li><a href="{{ path('app_category_index') }}" class="nav-link px-2 text-white">{{ 'categories_title.category'|trans}}</a></li>
                     </ul>
 
                     {% if app.user %}
                         <div class="text-end">
                             Hello, again {{ app.user.userIdentifier }}
-                            <a href="{{ path('app_logout') }}" type="button" class="btn btn-outline-light me-2">{{ 'logout.global'|trans}}{% endblock %}</a>
+                            <a href="{{ path('app_logout') }}" type="button" class="btn btn-outline-light me-2">{{ 'logout.global'|trans}}</a>
                         </div>
                     {% else %}
                         <div class="text-end">
-                            <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-light me-2">{{ 'login.base'|trans}}{% endblock %}</a>
-                            <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">{{ 'sign_up.base'|trans}}{% endblock %}</a>
+                            <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-light me-2">{{ 'login.base'|trans}}</a>
+                            <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">{{ 'sign_up.base'|trans}}</a>
                         </div>
                     {% endif %}
                 </div>

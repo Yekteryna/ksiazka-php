@@ -59,7 +59,7 @@
                 <target>Edytuj przepis</target>
             </trans-unit>
             <trans-unit id="recipe_title.recipe">
-                <source>recipe_title.global</source>
+                <source>recipe_title.recipe</source>
                 <target>Przepis</target>
             </trans-unit>
             <trans-unit id="recipes_title.recipe">
