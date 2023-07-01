@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\RecipeRepository;
 use App\Security\LoginFormAuthenticator;
+use App\Utils\Paginator;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +16,25 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
+/**
+ * RegistrationController.
+ */
 class RegistrationController extends AbstractController
 {
+    /**
+     * Register action.
+     *
+     * @param Request $request Request
+     * @param UserPasswordHasherInterface $userPasswordHasher UserPasswordHasherInterface
+     * @param UserAuthenticatorInterface $userAuthenticator UserAuthenticatorInterface
+     * @param LoginFormAuthenticator $authenticator LoginFormAuthenticator
+     * @param EntityManagerInterface $entityManager EntityManagerInterface
+     *
+     * @return Response HTTP response
+     */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator,
+                             LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);

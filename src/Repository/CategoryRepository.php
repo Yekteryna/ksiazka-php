@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Repository class for Category entity.
+ *
  * @extends ServiceEntityRepository<Category>
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,11 +18,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
+    /**
+     * CategoryRepository constructor.
+     *
+     * @param ManagerRegistry $registry The manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
     }
 
+    /**
+     * Save a category entity.
+     *
+     * @param Category $entity The category entity to save
+     * @param bool $flush Whether to flush the changes to the database (optional)
+     */
     public function save(Category $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +43,12 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Remove a category entity.
+     *
+     * @param Category $entity The category entity to remove
+     * @param bool $flush Whether to flush the changes to the database (optional)
+     */
     public function remove(Category $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

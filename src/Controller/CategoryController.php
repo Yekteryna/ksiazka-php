@@ -11,9 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * CategoryController.
+ */
+
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
+    /**
+     * Index action.
+     *
+     * @param CategoryRepository $categoryRepository CategoryRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/', name: 'app_category_index', methods: ['GET'])]
     public function index(CategoryRepository $categoryRepository): Response
     {
@@ -22,6 +33,14 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * New action.
+     *
+     * @param CategoryRepository $categoryRepository CategoryRepository
+     * @param Request $request HTTP Request
+     *
+     * @return Response HTTP response
+     */
     #[Route('/new', name: 'app_category_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
@@ -41,6 +60,13 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * Show action.
+     *
+     * @param Category $category Category
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
     public function show(Category $category): Response
     {
@@ -49,6 +75,15 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * Edit action.
+     *
+     * @param Request $request Request
+     * @param Category $category Category
+     * @param CategoryRepository $categoryRepository CategoryRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}/edit', name: 'app_category_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
@@ -68,6 +103,15 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete action.
+     *
+     * @param Request $request Request
+     * @param Category $category Category
+     * @param CategoryRepository $categoryRepository CategoryRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}', name: 'app_category_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response

@@ -19,11 +19,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * RecipeController.
+ */
 #[Route('/recipe')]
 class RecipeController extends AbstractController
 {
+    /**
+     * Index action.
+     *
+     * @param Request $request Request
+     * @param RecipeRepository $recipeRepository RecipeRepository
+     * @param Paginator $paginator Paginator
+     *
+     * @return Response HTTP response
+     */
     #[Route('/', name: 'app_recipe_index', methods: ['GET'])]
-    public function index(Request $request, RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, Paginator $paginator, EntityManagerInterface $em): Response
+    public function index(Request $request, RecipeRepository $recipeRepository, Paginator $paginator): Response
     {
         if ($categoryId = $request->query->get('category_id')) {
             $query = $recipeRepository->findByOrderDescAndCategory($categoryId);
@@ -39,6 +51,14 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * New action.
+     *
+     * @param Request $request Request
+     * @param RecipeRepository $recipeRepository RecipeRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RecipeRepository $recipeRepository): Response
     {
@@ -60,6 +80,13 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Show action.
+     *
+     * @param Recipe $recipe Recipe
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}', name: 'app_recipe_show', methods: ['GET'])]
     public function show(Recipe $recipe): Response
     {
@@ -73,6 +100,15 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Edit action.
+     *
+     * @param Request $request Request
+     * @param Recipe $recipe Recipe
+     * @param RecipeRepository $recipeRepository RecipeRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
@@ -98,6 +134,15 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete action.
+     *
+     * @param Request $request Request
+     * @param Recipe $recipe Recipe
+     * @param RecipeRepository $recipeRepository RecipeRepository
+     *
+     * @return Response HTTP response
+     */
     #[Route('/{id}', name: 'app_recipe_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
@@ -109,6 +154,15 @@ class RecipeController extends AbstractController
         return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * NewComment action.
+     *
+     * @param Request $request Request
+     * @param Recipe $recipe Recipe
+     * @param CommentRepository $commentRepository CommentRepository
+     *
+     * @return Response HTTP response
+     */
     #[NoReturn] #[Route('{id}/comment/new', name: 'app_comment_new', methods: ['POST'])]
     public function newComment(Request $request, Recipe $recipe, CommentRepository $commentRepository): Response
     {

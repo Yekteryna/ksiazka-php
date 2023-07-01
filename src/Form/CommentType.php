@@ -14,12 +14,32 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form type for Comment entity.
+ */
 class CommentType extends AbstractType
 {
-    public function __construct(readonly Security $security)
+    /**
+     * @var Security The security service
+     */
+    private Security $security;
+
+    /**
+     * Constructor.
+     *
+     * @param Security $security The security service
+     */
+    public function __construct(Security $security)
     {
+        $this->security = $security;
     }
 
+    /**
+     * Build the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The form options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $this->security->getUser();
@@ -29,6 +49,11 @@ class CommentType extends AbstractType
         $builder->add('message');
     }
 
+    /**
+     * Configure the form options.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -36,3 +61,4 @@ class CommentType extends AbstractType
         ]);
     }
 }
+

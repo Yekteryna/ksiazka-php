@@ -8,63 +8,113 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+/**
+ * Class User.
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
 {
+    /**
+     * Primary key.
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * Role.
+     */
     #[ORM\Column(nullable: true)]
     private array $role = [];
 
+    /**
+     * Nickname.
+     */
     #[ORM\Column(length: 60)]
     private ?string $nickname = null;
 
+    /**
+     * Email.
+     */
     #[ORM\Column(length: 45)]
     private ?string $email = null;
 
+    /**
+     * Password.
+     */
     #[ORM\Column(length: 200)]
     private ?string $password = null;
 
     #[ORM\Column]
     /**
+     * Status
+     *
      * @ORM\Column(type="string", length=255, nullable=false, options={"default" : 0})
      */
     private ?int $status = null;
 
+    /**
+     * CreatedAt.
+     */
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    /**
+     * Recipes.
+     */
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Recipe::class, orphanRemoval: true)]
     private Collection $recipes;
 
     public const STATUS_ACTIVE = 1;
     public const STATUS_DISABLED = 0;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
     }
 
+    /**
+     * Convert.
+     *
+     * @return string
+     */
     public function __toString(): string
     {
         return $this->getEmail();
     }
 
+    /**
+     * Getter Id.
+     *
+     * @return int|null ID
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Getter NickName.
+     *
+     * @return string|null NickName
+     */
     public function getNickname(): ?string
     {
         return $this->nickname;
     }
 
+    /**
+     * Nickname Setter.
+     *
+     * @param string $nickname Nickname
+     *
+     * @return self
+     */
     public function setNickname(string $nickname): self
     {
         $this->nickname = $nickname;
@@ -72,11 +122,23 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter CreatedAt.
+     *
+     * @return DateTimeImmutable|null CreatedAt
+     */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
     }
 
+    /**
+     * CreatedAt Setter.
+     *
+     * @param DateTimeImmutable $created_at No
+     *
+     * @return self
+     */
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
@@ -84,11 +146,23 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter No.
+     *
+     * @return string|null No
+     */
     public function getNo(): ?string
     {
         return $this->no;
     }
 
+    /**
+     * No Setter.
+     *
+     * @param string $no No
+     *
+     * @return self
+     */
     public function setNo(string $no): self
     {
         $this->no = $no;
@@ -97,7 +171,9 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     }
 
     /**
-     * @return Collection<int, Recipe>
+     * Getter Recipes
+     *
+     * @return Collection<int, Recipe> Recipes
      */
     public function getRecipes(): Collection
     {
@@ -126,6 +202,11 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter Role.
+     *
+     * @return array Role
+     */
     public function getRole(): array
     {
         $roles = $this->role;
@@ -135,6 +216,13 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return array_unique($roles);
     }
 
+    /**
+     * Role Setter.
+     *
+     * @param array|null $role Role
+     *
+     * @return self
+     */
     public function setRole(?array $role): self
     {
         $this->role = $role;
@@ -142,11 +230,23 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter Email.
+     *
+     * @return string|null Email
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * Email Setter.
+     *
+     * @param string $email Email
+     *
+     * @return self
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -154,11 +254,23 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter Password.
+     *
+     * @return string|null Password
+     */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /**
+     * Password Setter.
+     *
+     * @param string $password Password
+     *
+     * @return self
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -166,11 +278,23 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter Status.
+     *
+     * @return int|null Status
+     */
     public function getStatus(): ?int
     {
         return $this->status;
     }
 
+    /**
+     * Status Setter.
+     *
+     * @param int $status Status
+     *
+     * @return self
+     */
     public function setStatus(int $status): self
     {
         $this->status = $status;
@@ -178,6 +302,11 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
+    /**
+     * Getter Roles.
+     *
+     * @return array Roles
+     */
     public function getRoles(): array
     {
         $roles = $this->role;
@@ -192,6 +321,11 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         // TODO: Implement eraseCredentials() method.
     }
 
+    /**
+     * Getter UserIdentifier.
+     *
+     * @return string UserIdentifier
+     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;

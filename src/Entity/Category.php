@@ -6,41 +6,77 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+/**
+ * Class Category.
+ */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
+    /**
+     * Primary key.
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    /**
+     * Title.
+     */
     #[ORM\Column(length: 60)]
     private ?string $title = null;
 
+    /**
+     * Recipes.
+     */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Recipe::class, orphanRemoval: true)]
     private Collection $recipes;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
     }
 
+    /**
+     * Convert.
+     *
+     * @return string
+     */
     public function __toString(): string
     {
         return $this->getTitle();
     }
 
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Id
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Getter for Title.
+     *
+     * @return string|null Title
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * Title Setter.
+     *
+     * @param string $title Title
+     *
+     * @return self
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -49,6 +85,8 @@ class Category
     }
 
     /**
+     * Getter for Recipes.
+     *
      * @return Collection<int, Recipe>
      */
     public function getRecipes(): Collection

@@ -7,17 +7,31 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form type for Recipe entity.
+ */
 class Recipe1Type extends AbstractType
 {
+    /**
+     * Build the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The form options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title')
             ->add('description')
-            ->add('user')
+            ->add('user', UserType::class)
         ;
     }
 
+    /**
+     * Configure the form options.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
