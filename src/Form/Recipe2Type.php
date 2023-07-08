@@ -23,7 +23,7 @@ class Recipe2Type extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('category', CategoryType::class)
+            ->add('category')
         ;
     }
 

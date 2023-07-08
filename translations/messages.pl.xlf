@@ -55,7 +55,7 @@
                 <target>Powrót do listy</target>
             </trans-unit>
             <trans-unit id="edit_recipe.recipe">
-                <source>edit_recipe.global</source>
+                <source>edit_recipe.recipe</source>
                 <target>Edytuj przepis</target>
             </trans-unit>
             <trans-unit id="recipe_title.recipe">
@@ -63,7 +63,7 @@
                 <target>Przepis</target>
             </trans-unit>
             <trans-unit id="recipes_title.recipe">
-                <source>recipes_title.global</source>
+                <source>recipes_title.recipe</source>
                 <target>Przepisy</target>
             </trans-unit>
             <trans-unit id="sure_to_delete.global">
