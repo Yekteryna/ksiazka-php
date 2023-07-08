@@ -34,7 +34,7 @@
 
                     {% if app.user %}
                         <div class="text-end">
-                            Hello, again {{ app.user.userIdentifier }}
+                            <a href="{{ path('change_password') }}" type="button" class="btn btn-outline-light me-2">Profile {{ app.user.userIdentifier }}</a>
                             <a href="{{ path('app_logout') }}" type="button" class="btn btn-outline-light me-2">{{ 'logout.global'|trans}}</a>
                         </div>
                     {% else %}

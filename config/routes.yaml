@@ -16,6 +16,10 @@ registration:
 comment:
     resource: 'App\Controller\CommentController'
     type: 'annotation'
+change_password:
+    path: '/profile/change-password'
+    controller: App\Controller\ChangePasswordController::changePassword
+    methods: [GET, POST]
 
 access_denied:
     path: /access-denied
