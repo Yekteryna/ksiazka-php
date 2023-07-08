@@ -6,12 +6,11 @@ use App\Entity\Comment;
 use App\Entity\Recipe;
 use App\Form\CommentType;
 use App\Form\Recipe2Type;
-use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\RecipeRepository;
+use App\Service\RecipeService;
 use App\Utils\Paginator;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recipe')]
 class RecipeController extends AbstractController
 {
+    public function __construct(protected RecipeService $recipeService) {}
+
     /**
      * Index action.
      *
@@ -35,18 +36,18 @@ class RecipeController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/', name: 'app_recipe_index', methods: ['GET'])]
-    public function index(Request $request, RecipeRepository $recipeRepository, Paginator $paginator): Response
+    public function index(Request $request): Response
     {
         if ($categoryId = $request->query->get('category_id')) {
-            $query = $recipeRepository->findByOrderDescAndCategory($categoryId);
+            $query = $this->recipeService->findByOrderDescAndCategory($categoryId);
         } else {
-            $query = $recipeRepository->findByOrderDescAndCategory();
+            $query = $this->recipeService->findByOrderDescAndCategory();
         }
 
-        $paginator->paginate($query, $request->query->getInt('page', 1));
+        $paginator = $this->recipeService->getPagination($query, $request->query->getInt('page', 1));
 
         return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipeRepository->findAll(),
+            'recipes' => $this->recipeService->findAll(),
             'paginator' => $paginator,
         ]);
     }
@@ -60,7 +61,7 @@ class RecipeController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/new', name: 'app_recipe_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, RecipeRepository $recipeRepository): Response
+    public function new(Request $request): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(Recipe2Type::class, $recipe);
@@ -69,7 +70,7 @@ class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe->setUserId($this->getUser());
             $recipe->setCreatedAt((new DateTimeImmutable));
-            $recipeRepository->save($recipe, true);
+            $this->recipeService->save($recipe, true);
 
             return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -111,7 +112,7 @@ class RecipeController extends AbstractController
      */
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
+    public function edit(Request $request, Recipe $recipe): Response
     {
         $user = $this->getUser();
 
@@ -123,7 +124,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe, true);
+            $this->recipeService->save($recipe, true);
 
             return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -145,10 +146,10 @@ class RecipeController extends AbstractController
      */
     #[Route('/{id}', name: 'app_recipe_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
+    public function delete(Request $request, Recipe $recipe): Response
     {
         if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
-            $recipeRepository->remove($recipe, true);
+            $this->recipeService->remove($recipe, true);
         }
 
         return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
