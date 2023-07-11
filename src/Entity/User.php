@@ -3,17 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class User.
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'user')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * Primary key.
@@ -27,24 +30,35 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      * Role.
      */
     #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'json')]
     private array $role = [];
 
     /**
      * Nickname.
      */
     #[ORM\Column(length: 60)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $nickname = null;
 
     /**
      * Email.
      */
     #[ORM\Column(length: 45)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $email = null;
 
     /**
      * Password.
      */
     #[ORM\Column(length: 200)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -58,13 +72,16 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     /**
      * CreatedAt.
      */
+    #[ORM\Column(nullable: true)]
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    #[Assert\NotBlank]
+    private ?DateTimeImmutable $created_at = null;
 
     /**
      * Recipes.
      */
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Recipe::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $recipes;
 
     public const STATUS_ACTIVE = 1;
@@ -127,7 +144,7 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      *
      * @return DateTimeImmutable|null CreatedAt
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->created_at;
     }
@@ -139,7 +156,7 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      *
      * @return self
      */
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
 

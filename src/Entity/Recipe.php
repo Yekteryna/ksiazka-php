@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeImmutableToDat
  * Class Recipe.
  */
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[ORM\Table(name: 'recipe')]
 class Recipe
 {
 
@@ -27,12 +28,18 @@ class Recipe
      * Title.
      */
     #[ORM\Column(length: 60)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
      * Description.
      */
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $description = null;
 
     /**
@@ -40,6 +47,7 @@ class Recipe
      */
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?User $user = null;
 
     /**
@@ -47,18 +55,21 @@ class Recipe
      */
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Category $category = null;
 
     /**
      * CreatedAt.
      */
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank]
     private ?\DateTimeImmutable $created_at = null;
 
     /**
      * Comments.
      */
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $comments;
 
     /**
@@ -123,19 +134,6 @@ class Recipe
         return $this->description;
     }
 
-    /**
-     * Description Setter.
-     *
-     * @param string $description Description
-     *
-     * @return self
-     */
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     /**
      * Getter User.

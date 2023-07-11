@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Comment.
  */
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\Table(name: 'comment')]
 class Comment
 {
     /**
@@ -23,30 +24,42 @@ class Comment
      */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Recipe $recipe = null;
 
     /**
      * NickName.
      */
     #[ORM\Column(length: 45)]
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $nickname = null;
 
     /**
      * Email.
      */
     #[ORM\Column(length: 45)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $email = null;
 
     /**
      * Message.
      */
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $message = null;
 
     /**
      * Created at.
      */
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank]
     private ?\DateTimeImmutable $created_at = null;
 
     /**

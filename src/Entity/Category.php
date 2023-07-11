@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Category.
  */
+#[ORM\Table(name: 'category')]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
@@ -24,12 +25,16 @@ class Category
      * Title.
      */
     #[ORM\Column(length: 60)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
     private ?string $title = null;
 
     /**
      * Recipes.
      */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Recipe::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $recipes;
 
     /**
