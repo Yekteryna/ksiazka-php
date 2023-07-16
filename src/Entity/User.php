@@ -31,12 +31,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column(nullable: true)]
     #[ORM\Column(type: 'json')]
+    #[Assert\NotBlank]
     private array $role = [];
 
     /**
      * Nickname.
      */
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 64)]
     #[Assert\Type('string')]
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 64)]
@@ -49,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     #[Assert\Email]
     #[Assert\Type('string')]
-    #[Assert\Length(min: 3, max: 64)]
+    #[Assert\Length(min: 3, max: 45)]
     private ?string $email = null;
 
     /**
@@ -58,15 +59,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 200)]
     #[Assert\Type('string')]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 64)]
+    #[Assert\Length(min: 3, max: 200)]
     private ?string $password = null;
 
-    #[ORM\Column]
+
     /**
      * Status
      *
-     * @ORM\Column(type="string", length=255, nullable=false, options={"default" : 0})
      */
+    #[ORM\Column(type:"string", length:255, nullable:false)]
+    #[Assert\NotBlank]
     private ?int $status = null;
 
     /**

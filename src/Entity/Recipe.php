@@ -61,6 +61,7 @@ class Recipe
     /**
      * CreatedAt.
      */
+    #[ORM\Column(type: 'datetime_immutable')]
     #[ORM\Column(nullable: true)]
     #[Assert\NotBlank]
     private ?\DateTimeImmutable $created_at = null;
