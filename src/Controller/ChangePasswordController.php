@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ChangePasswordService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -16,9 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChangePasswordController extends AbstractController
 {
+    public function __construct(protected ChangePasswordService $changePasswordService) {}
     #[Route('/change-password', name: 'change_password')]
     #[IsGranted('ROLE_ADMIN')]
-    public function changePassword(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): RedirectResponse|Response
+    public function changePassword(Request $request, UserPasswordHasherInterface $userPasswordHasher): RedirectResponse|Response
     {
         $user = $this->getUser();
         // Create the change password form
@@ -50,8 +51,7 @@ class ChangePasswordController extends AbstractController
             // Update the user's password
             $newEncodedPassword = $userPasswordHasher->hashPassword($user, $data['new_password']);
             $user->setPassword($newEncodedPassword);
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->changePasswordService->UpdatePassword($user);
 
             $this->addFlash('success', 'Your password has been changed.');
 
