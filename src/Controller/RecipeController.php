@@ -34,13 +34,8 @@ class RecipeController extends AbstractController
     #[Route('/', name: 'app_recipe_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
-        if ($categoryId = $request->query->get('category_id')) {
-            $query = $this->recipeService->findByOrderDescAndCategory($categoryId);
-        } else {
-            $query = $this->recipeService->findByOrderDescAndCategory();
-        }
-
-        $paginator = $this->recipeService->getPagination($query, $request->query->getInt('page', 1));
+        $categoryId = $request->query->get('category_id');
+        $paginator = $this->recipeService->getPagination($categoryId, $request->query->getInt('page', 1));
 
         return $this->render('recipe/index.html.twig', [
             'recipes' => $this->recipeService->findAll(),

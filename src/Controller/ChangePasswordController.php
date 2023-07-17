@@ -41,17 +41,14 @@ class ChangePasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            // Verify the current password
             if (!$userPasswordHasher->isPasswordValid($user, $data['current_password'])) {
                 $this->addFlash('error', 'Invalid current password.');
 
                 return $this->redirectToRoute('change_password');
             }
 
-            // Update the user's password
             $newEncodedPassword = $userPasswordHasher->hashPassword($user, $data['new_password']);
-            $user->setPassword($newEncodedPassword);
-            $this->changePasswordService->UpdatePassword($user);
+            $this->changePasswordService->UpdatePassword($user, $newEncodedPassword);
 
             $this->addFlash('success', 'Your password has been changed.');
 

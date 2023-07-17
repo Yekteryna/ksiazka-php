@@ -2,9 +2,11 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Utils\Paginator;
 use App\Repository\RecipeRepository;
+use MongoDB\Driver\Query;
 
 
 class RecipeService
@@ -16,9 +18,17 @@ class RecipeService
     {
     }
 
-    public function getPagination(\Doctrine\ORM\QueryBuilder $query, int $page): Paginator
+    public function queryAll(int $categoryId): \Doctrine\ORM\QueryBuilder
     {
-        return $this->paginator->paginate($query, $page);
+        if ($categoryId) {
+            return $this->recipeRepository->findByOrderDescAndCategory($categoryId);
+        } else {
+            return $this->recipeRepository->findByOrderDescAndCategory();
+        }
+    }
+    public function getPagination(int $categoryId, int $page): Paginator
+    {
+        return $this->paginator->paginate($this->queryAll($categoryId), $page);
     }
 
     public function findByOrderDescAndCategory(int $categoryId = null): \Doctrine\ORM\QueryBuilder

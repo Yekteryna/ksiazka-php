@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use App\Service\RegistrationService;
-use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,19 +39,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $user->setStatus(User::STATUS_ACTIVE);
-            $user->setRole(['ROLE_USER']);
-            $user->setCreatedAt((new DateTimeImmutable));
-
-            $this->registrationService->UpdateUser($user);
-            // do anything else you need here, like send an email
+            $this->registrationService->RegisterUser($user, $userPasswordHasher, $form);
 
             return $userAuthenticator->authenticateUser(
                 $user,

@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
 use App\Service\CategoryService;
 use App\Service\CommentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -33,7 +33,7 @@ class Category
     /**
      * Recipes.
      */
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Recipe::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Recipe::class, orphanRemoval: true, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
     private Collection $recipes;
 
